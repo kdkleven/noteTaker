@@ -23,6 +23,6 @@ module.exports = function(app){
         res.send('Note deleted');
 
     });
-}
+};
 
 
