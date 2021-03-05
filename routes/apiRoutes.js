@@ -47,7 +47,7 @@ module.exports = function (app) {
     // declare a variable that searches through each item in the note array and locates the matching value  
         const note = db.findIndex(note => note.id === req.params.id);
     // delete the matched value based on the found index variable
-        db.splice(deleteNote, 1);
+        db.splice(note, 1);
     // write the updated array (sans matched index) to the json file
         fs.writeFile(`./db/db.json`, JSON.stringify(db, null, 1), (err) => {
             if (err) throw err;
