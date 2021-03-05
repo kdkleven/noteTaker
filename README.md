@@ -17,12 +17,17 @@ As the name implies, Notey Takey is your favorite application for taking notes. 
 
 ## Install Instructions
 
-This application requires Node.js. Run 'npm i' to install dependencies.
+This application requires Node.js. Download the repository and run 'npm i' to install dependencies.
   
 ## Usage Instructions
 
-To run the application, open the terminal and run 'node server.js'.
+### Local
+To run the application locally, open the terminal and run 'node server.js', then navigate to localhost:8081 in a web browser to access the application.
 
+### Live
+Navigate to https://notey-takey.herokuapp.com/ and enjoy! Enter a title, and desired note text. 
+* Click the disk icon to save the note. 
+* Click the trash can icon to delete a note.
 
 ## License
   
@@ -38,6 +43,10 @@ Contributors are welcome. Just remember, this is open source software. Consider 
 ## Test Instructions
 
 There are currently no tests for this application.
+
+## Icebox 
+Coming soon:
+* Editing existing notes
 
 ## Questions
 
