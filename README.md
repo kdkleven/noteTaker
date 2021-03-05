@@ -1,11 +1,11 @@
 
-# Note Taker
+# Notey Takey
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
     
 ## Description
 
-The Note Taker application allows users to create and save persistent notes, view previously saved notes, and delete previously saved notes.
+As the name implies, Notey Takey is your favorite application for taking notes. The app allows users to create and save persistent notes, view previously saved notes, and delete previously saved notes.
       
 ## Table of Contents
 1. [Install Instructions](#install-instructions)
