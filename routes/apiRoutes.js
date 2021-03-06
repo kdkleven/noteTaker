@@ -48,10 +48,10 @@ module.exports = function (app) {
     app.delete('/api/notes/:id', function (req, res) {
     
         const update = db.filter(note => note.id !== req.params.id);
-        
+
         fs.writeFile(`./db/db.json`, JSON.stringify(update, null, 1), (err) => {
             if (err) throw err;
             console.log("write end");
-        });                
+        });         
     });
 };
