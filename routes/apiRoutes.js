@@ -38,20 +38,26 @@ module.exports = function (app) {
             fs.writeFile(`./db/db.json`, JSON.stringify(json, null, 1), (err) => {
                 if (err) throw err;
                 // end the response
-                res.end();
             });
-            res.end();
+            res.send("A new note has been created");
         });
     });
 
     // Receive a query parameter containing the id of a note to delete.
-    app.delete('/api/notes/:id', function (req, res) {
-    
-        const update = db.filter(note => note.id !== req.params.id);
-
-        fs.writeFile(`./db/db.json`, JSON.stringify(update, null, 1), (err) => {
+    app.delete('/api/notes/:id', (req, res) => {
+        
+        fs.readFile(`./db/db.json`, (err, data) => {
             if (err) throw err;
-            console.log("write end");
-        });         
+            const update = data.filter(note => note.id !== req.params.id);
+            console.log(update);
+            // fs.writeFile(`./db/db.json`, JSON.stringify(update, null, 1), (err) => {
+            //     if (err) throw err;
+            //     console.log("write end");
+            //     res.send("Deleted record with ID "+ req.params.id);
+            //     console.log("Deleted record with ID "+ req.params.id)
+            // });   
+
+        });
+        
     });
 };
