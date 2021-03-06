@@ -1,5 +1,6 @@
+// require express
+const express = require('express');
 
-var express = require('express');
 // Tells node that we are creating an "express" server
 var app = express();
 // Sets an initial port.
@@ -17,6 +18,4 @@ require('./routes/apiRoutes')(app);
 require('./routes/htmlRoutes')(app);
 // LISTENER
 // The below code effectively "starts" our server
-app.listen(PORT, function () {
-    console.log('Listening on PORT: ' + PORT);
-});
+app.listen(PORT, () => console.log('Listening on PORT: ' + PORT));

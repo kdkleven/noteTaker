@@ -1,44 +1,57 @@
-var db = require('../db/db.json');
-var fs = require('fs');
+// require db (to access the json file)
+const db = require('../db/db.json');
+// require uuid (used to generate a unique id for each note)
+const { v4: uuidv4 } = require('uuid');
+// require fs to read and write to the file
+const fs = require('fs');
+const { json } = require('express');
 
-module.exports = function(app){
+module.exports = function (app) {
     // GET `/api/notes` - Should read the `db.json` file and return all saved notes as JSON.    
     app.get('/api/notes', function (req, res) {
-        // fs.readFile(`${__dirname}/db.json`, (err, req) => {
-        //     if (err) {
-        //       res.writeHead(500, { 'Content-Type': 'text/json' });
-        //       res.end();
-        //     } else {
-        //       // We then respond to the client with the HTML page by specifically telling the browser that we are delivering
-        //       // an html file.
-        //       res.writeHead(200, { 'Content-Type': 'text/json' });
-        //       res.end();
-        //     }
-        //   });
-        res.json(db);
-        console.log("app.get");
-        res.end();
+        // read the json file
+        fs.readFile(`./db/db.json`, (err, data) => {
+            if (err) throw err;
+            // write the header with status, type and format
+            res.writeHead(200, { 'Content-Type': 'text/json' });
+            // write data to the page
+            res.write(data);
+            // end the response
+            res.end();
+        });
     });
 
-    // POST `/api/notes` - Should receive a new note to save on the request body, add it to the `db.json` file, and then return the new note to the client.
+    // Receive a new note to save on the request body, add it to the `db.json` file, and then return the new note to the client.
     app.post('/api/notes', function (req, res) {
-        console.log("This is /api/notes.post");
-        // fs.writeFile(`${__dirname}/db.json`, 'utf8', (err) => {
-        //     if (err) throw err;
-        //     console.log('Note has been saved');
-        // });        
-        // res.json(true);
-        console.log("app.post");
-        res.push(db);
-        res.end();
+        // declare variable that contains a unique/random alphanumeric string
+         const id = uuidv4();
+        // read the json file
+        return fs.readFile(`./db/db.json`, (err, data) => {
+            //declare a variable that parses the read data
+            const json = JSON.parse(data);
+            // set a new key in the note with the random id
+            req.body.id = id;
+            console.log(req.body);
+            // update the existing note data with the id
+            json.push(req.body);
+            // write the updated note data to the json file, and clean up the json format
+            fs.writeFile(`./db/db.json`, JSON.stringify(json, null, 1), (err) => {
+                if (err) throw err;
+                // end the response
+                res.end();
+            });
+            res.end();
+        });
     });
 
-    // DELETE `/api/notes/:id` - Should receive a query parameter containing the id of a note to delete. This means you'll need to find a way to give each note a unique `id` when it's saved. In order to delete a note, you'll need to read all notes from the `db.json` file, remove the note with the given `id` property, and then rewrite the notes to the `db.json` file.
+    // Receive a query parameter containing the id of a note to delete.
     app.delete('/api/notes/:id', function (req, res) {
-        console.log("This is /api/notes/:id");
-        res.send('Note deleted');
-
+    
+        const update = db.filter(note => note.id !== req.params.id);
+        
+        fs.writeFile(`./db/db.json`, JSON.stringify(update, null, 1), (err) => {
+            if (err) throw err;
+            console.log("write end");
+        });                
     });
 };
-
-
