@@ -8,7 +8,7 @@ var PORT = process.env.PORT || 8081;
 app.use(express.urlencoded({ extended : true }));
 app.use(express.json());
 //setup public folder for images, js, css
-app.use(express.static('public'));
+app.use(express.static('./public'));
 
 //ROUTES
 //API 
